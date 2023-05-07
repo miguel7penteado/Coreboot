@@ -115,3 +115,4 @@ Adding all the features as described above is still work in progress: The patche
 
 You can see our accepted contributions on coreboot’s git.
 
+Ref http://silicone.homelinux.org/2018/04/11/inside-an-open-source-bios/

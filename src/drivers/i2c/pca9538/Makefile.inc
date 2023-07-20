@@ -1,0 +1,1 @@
+ramstage-$(CONFIG_DRIVERS_I2C_PCA9538) += pca9538.c

@@ -1,118 +1,198 @@
+coreboot README
+===============
 
-# Inside an Open Source BIOS
+coreboot is a Free Software project aimed at replacing the proprietary
+firmware (BIOS/UEFI) found in most computers. coreboot performs the
+required hardware initialization to configure the system, then passes
+control to a different executable, referred to in coreboot as the
+payload. Most often, the primary function of the payload is to boot the
+operating system (OS).
 
-## coreboot and FSP
+With the separation of hardware initialization and later boot logic,
+coreboot is perfect for a wide variety of situations. It can be used
+for specialized applications that run directly in the firmware, running
+operating systems from flash, loading custom bootloaders, or
+implementing firmware standards, like PC BIOS services or UEFI. This
+flexibility allows coreboot systems to include only the features
+necessary in the target application, reducing the amount of code and
+flash space required.
 
-### bootblock
-An x86 processor starts by fetching some code from the motherboard flash and execute it. In coreboot, this stage is called bootblock.
 
-At this point the processor has almost no knowledge of its peripheral sometime not even the flash controller! (In that case, the first fetch is done automatically by the hardware).
+Source code
+-----------
 
-So the bootblock configure the flash controller if needed: mostly mapping the flash in the memory space for reading only. It can configure the console on an UART port to help debugging. Then it passes to the next stage called romstage.
+All source code for coreboot is stored in git. It is downloaded with
+the command:
 
-At the end of bootblock the system enabled components are CPU (partial) and Flash (read-only) as shown on the following figure:
-http://silicone.homelinux.org/wp-uploads/2018/04/system-view-flash.svg
+`git clone https://review.coreboot.org/coreboot.git`.
 
-### romstage
+Code reviews are done in [the project's Gerrit
+instance](https://review.coreboot.org/).
 
-Now the processor has access to the full flash so it can fetch more code, but it still has no RAM! romstage main purpose is to configure the DDR controller to access the external memory.
+The code may be browsed via [coreboot's Gitiles
+instance](https://review.coreboot.org/plugins/gitiles/coreboot/+/refs/heads/master).
 
-In order to run some “normal” executable, some writable memory is needed. With only the flash available so far we will need to find some RAM!
+The coreboot project also maintains a
+[mirror](https://github.com/coreboot/coreboot) of the project on github.
+This is read-only, as coreboot does not accept github pull requests,
+but allows browsing and downloading the coreboot source.
 
-### Cache as Ram (CAR)
+Payloads
+--------
 
-There is some memory available inside the CPU: the caches. So the idea behind CAR is to configure the cache so that code can use it as its ram. Then once the external RAM is available, the important values are copied to RAM and the cache is configured back as a cache.
+After the basic initialization of the hardware has been performed, any
+desired "payload" can be started by coreboot.
 
-### Memory Initialisation
+See <https://doc.coreboot.org/payloads.html> for a list of some of
+coreboot's supported payloads.
 
-The memory initialisation is a complex process, this part is mostly provided as binary by the CPU vendor. In our case we use Intel FSP for the memory initialisation.
 
-The FSP is a binary provided by Intel to handle the specificities of the SoC.
+Supported Hardware
+------------------
 
-Here coreboot calls the part called FSP_M. It will initialise the SoC and configure the memory Controller. Once done, it returns to coreboot. coreboot will then start the next stage: ramstage.
+The coreboot project supports a wide range of architectures, chipsets,
+devices, and mainboards. While not all of these are documented, you can
+find some information in the [Architecture-specific
+documentation](https://doc.coreboot.org/arch/index.html) or the
+[SOC-specific documentation](https://doc.coreboot.org/soc/index.html).
 
-At the end of romstage the system enabled components are CPU (partial), Flash and RAM as shown on the following figure:
-http://silicone.homelinux.org/wp-uploads/2018/04/system-view-ram.svg
+For details about the specific mainboard devices that coreboot supports,
+please consult the [Mainboard-specific
+documentation](https://doc.coreboot.org/mainboard/index.html) or the
+[Board Status](https://coreboot.org/status/board-status.html) pages.
 
-### ramstage
 
-In ramstage the CPU finally has access to external memory, it will now initialize the remaining specific hardware component.
+Releases
+--------
 
-### Inicialização MultiProcessador
+Releases are currently done by coreboot every quarter. The
+release archives contain the entire coreboot codebase from the time of
+the release, along with any external submodules. The submodules
+containing binaries are separated from the general release archives. All
+of the packages required to build the coreboot toolchains are also kept
+at coreboot.org in case the websites change, or those specific packages
+become unavailable in the future.
 
-Modern CPU have more than one core, the other cores need to be started, this is done during ramstage.
+All releases are available on the [coreboot
+download](https://coreboot.org/downloads.html) page.
 
-During that phase the SMM handler are setup (Note that coreboot is managing SMM not FSP, this is good news for security).
+Please note that the coreboot releases are best considered as snapshots
+of the codebase, and do not currently guarantee any sort of extra
+stability.
 
-### Barramento PCI
+Build Requirements and building coreboot
+----------------------------------------
 
-Here again we used Intel’s help to setup the peripheral in the right state. This is done by calling FSP again, the part is now FSP_S for Silicon Initialisation.
+The coreboot build, associated utilities and payloads require many
+additional tools and packages to build. The actual coreboot binary is
+typically built using a coreboot-controlled toolchain to provide
+reproducibility across various platforms. It is also possible, though
+not recommended, to make it directly with your system toolchain.
+Operating systems and distributions come with an unknown variety of
+system tools and utilities installed. Because of this, it isn't
+reasonable to list all the required packages to do a build, but the
+documentation lists the requirements for a few different Linux
+distributions.
 
-Once prepared, coreboot does the configuration of the peripheral. This is where the PCI enumeration takes place. For each device coreboot will do the required configuration so that the device will function at later stage. Note that for most of them coreboot does not have a driver, this is left for the payload.
+To see the list of tools and libraries, along with a list of
+instructions to get started building coreboot, go to the [Starting from
+scratch](https://doc.coreboot.org/tutorial/part1.html) tutorial page.
 
-Then FSP_S need to be notified so it can further update the configuration of some devices. (Well it’s binary only so we don’t really know what it does).
+That same page goes through how to use QEMU to boot the build and see
+the output.
 
-### Tables generation
 
-coreboot then prepare the different information tables:
+Website and Mailing List
+------------------------
 
-ACPI: Mainly used for power management,
-SMBIOS: Used for configuration management and inventory (read by dmidecode under linux).
+Further details on the project, as well as links to documentation and
+more can be found on the coreboot website:
 
-### Preparing to call the payload
-Again FSP_S need to be notified that we will leave coreboot, it will mainly protect some configuration registers to prevent further configuration.
+  <https://www.coreboot.org>
 
-coreboot also can protect some registers to prevent the OS from changing them and risking damaging the hardware (like changing the configuration of general purpose pins that are connected on the board).
+You can contact us directly on the coreboot mailing list:
 
-At last coreboot calls the payload, in our case Tianocore’s coreboot payload package.
+  <https://doc.coreboot.org/community/forums.html>
 
-At the end of ramstage all system components are enabled as shown on the following figure:
-http://silicone.homelinux.org/wp-uploads/2018/04/system-view-full.svg
 
-## Tianocore
 
-So Tianocore is used to boot the OS using the uEFI interface. I wont go into details here, uEFI would need a full article to describe 🙂
-Here the early board bringup is done by coreboot so the PEI phase in uEFI will be reduced to the minimum.
+Copyrights and Licenses
+---------------------
 
-## Development
 
-### On coreboot
-The development on coreboot was first to adapt the configuration to our board:
+### Uncopyrightable files
 
-GPIO configurations
-Add BMC interface
-Add secure update process (Allow Flash access only when authorized by BMC)
-Then we had to enable the CPU features:
+There are many files in the coreboot tree that we feel are not
+copyrightable due to a lack of creative content.
 
-Power Configuration (Enable SpeedStep and Turbo)
-Enable FastStrings
-Confiure and enable Machine Check Exceptions
-Allow the UART to use the Legacy Address
-Finally we completed the ACPI and SMBIOS implementation:
+"In order to qualify for copyright protection in the United States, a
+work must satisfy the originality requirement, which has two parts. The
+work must have “at least a modicum” of creativity, and it must be the
+independent creation of its author."
 
-ACPI tables for cpu power management (C-States, P-States and T-States),
-ACPI description of the UART Interrupt which is not the standard one,
-SMBIOS description of the memory DIMM modules,
-SMBIOS description of the system (serial number, node location in chassis…).
-We’d like to thank Intel and their support team that assisted us in these tasks.
+  <https://guides.lib.umich.edu/copyrightbasics/copyrightability>
 
-### On Tianocore
+Similar terms apply to other locations.
 
-In Tianocore we mainly enabled existing feature by creating a specific package that use the coreboot payload package and extend it with:
+These uncopyrightable files include:
 
-Network stack and network driver,
-NVMe Drivers.
-Support for Console (UART) and SATA was already enabled.
+- Empty files or files with only a comment explaining their existence.
+  These may be required to exist as part of the build process but are
+  not needed for the particular project.
+- Configuration files either in binary or text form. Examples would be
+  files such as .vbt files describing graphics configuration, spd files
+  as binary .spd or text \*spd\*.hex representing memory chip
+  configuration.
+- Machine-generated files containing version numbers, dates, hash
+  values or other "non-creative" content.
 
-This really was just a matter of enabling some modules that are already available. Looking how they where integrated in OVMF was a great help.
+As non-creative content, these files are in the public domain by
+default.  As such, the coreboot project excludes them from the project's
+general license even though they may be included in a final binary.
 
-## Contribuições
-Now that Intel published the initial support for the denverton SoC, we ported all our change to the current coreboot master and started to upstream them.
+If there are questions or concerns about this policy, please get in
+touch with the coreboot project via the mailing list.
 
-The basic support of the board and the UART configuration have been accepted in coreboot already.
 
-Adding all the features as described above is still work in progress: The patches have been submitted and the review are in progress.
+### Copyrights
 
-You can see our accepted contributions on coreboot’s git.
+The copyright on coreboot is owned by quite a large number of individual
+developers and companies. A list of companies and individuals with known
+copyright claims is present at the top level of the coreboot source tree
+in the 'AUTHORS' file. Please check the git history of each of the
+source files for details.
 
-Ref http://silicone.homelinux.org/2018/04/11/inside-an-open-source-bios/
+
+### Licenses
+
+Because of the way coreboot began, using a significant amount of source
+code from the Linux kernel, it's licensed the same way as the Linux
+Kernel, with GNU General Public License (GPL) Version 2. Individual
+files are licensed under various licenses, though all are compatible
+with GPLv2. The resulting coreboot image is licensed under the GPL,
+version 2. All source files should have an SPDX license identifier at
+the top for clarification.
+
+Files under coreboot/Documentation/ are licensed under CC-BY 4.0 terms.
+As an exception, files under Documentation/ with a history older than
+2017-05-24 might be under different licenses.
+
+Files in the coreboot/src/commonlib/bsd directory are all licensed with
+the BSD-3-clause license.  Many are also dual-licensed GPL-2.0-only or
+GPL-2.0-or-later.  These files are intended to be shared with libpayload
+or other BSD licensed projects.
+
+The libpayload project contained in coreboot/payloads/libpayload may be
+licensed as BSD or GPL, depending on the code pulled in during the build
+process. All GPL source code should be excluded unless the Kconfig
+option to include it is set.
+
+
+The Software Freedom Conservancy
+--------------------------------
+
+Since 2017, coreboot has been a member of [The Software Freedom
+Conservancy](https://sfconservancy.org/), a nonprofit organization
+devoted to ethical technology and driving initiatives to make technology
+more inclusive. The conservancy acts as coreboot's fiscal sponsor and
+legal advisor.

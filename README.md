@@ -59,7 +59,14 @@ Se você está usando Debian/Ubuntu seguem os pacotes pré-requisitados
 sudo apt-get install -y bison build-essential curl flex git gnat libncurses5-dev m4 zlib1g-dev qemu
 ```
 
-A compilação coreboot, utilitários associados e cargas úteis requerem muitas ferramentas e pacotes adicionais para serem compilados. O binário real do coreboot é normalmente construído usando uma cadeia de ferramentas (toolchain) gerenciada pelo coreboot para fornecer reprodutibilidade em várias plataformas. Também é possível, embora não recomendado, fazê-lo diretamente com sua cadeia de ferramentas (toolchain) padrão do sistema. Sistemas operacionais e distribuições vêm com uma variedade desconhecida de ferramentas e utilitários do sistema instalados. Por causa disso, não é razoável listar todos os pacotes necessários para fazer uma compilação, mas o A documentação lista os requisitos para algumas distribuições Linux diferentes.
+A compilação coreboot, utilitários associados e cargas úteis requerem muitas ferramentas e pacotes adicionais para serem compilados. O binário real do coreboot é normalmente construído usando uma cadeia de ferramentas (toolchain) gerenciada pelo coreboot para fornecer reprodutibilidade em várias plataformas. 
+
+```bash
+# compilando e construindo utilizando compilação cruzada com a cadeia de ferramentas fornecidas pelo próprio coreboot
+make crossgcc-i386
+```
+
+Também é possível, embora não recomendado, fazê-lo diretamente com sua cadeia de ferramentas (toolchain) padrão do sistema. Sistemas operacionais e distribuições vêm com uma variedade desconhecida de ferramentas e utilitários do sistema instalados. Por causa disso, não é razoável listar todos os pacotes necessários para fazer uma compilação, mas o A documentação lista os requisitos para algumas distribuições Linux diferentes.
 
 Para ver a lista de ferramentas e bibliotecas, juntamente com uma lista de instruções para começar a criar o coreboot, acesse a página do tutorial [Começando do zero](https://doc.coreboot.org/tutorial/part1.html).
 

@@ -26,7 +26,7 @@ Isso é somente leitura, pois o coreboot não aceita solicitações pull do gith
 
 ## Árvore de diretórios do projeto Coreboot
 
-
+![](pictures/coreboot.jpg)
 
 | Diretório da árvore | Conteúdo                                                                                         |
 |---------------------|--------------------------------------------------------------------------------------------------|

@@ -80,13 +80,13 @@ Aqui a idéia é gerar um binário de coreboot que seja compilado específicamen
 make menuconfig
 ```
 Segue as telas de configuração:
-![](pictures/qemu1.jpg)
+![](pictures/menu1.jpg)
 
-![](pictures/qemu2.jpg)
+![](pictures/menu2.jpg)
 
-![](pictures/qemu3.jpg)
+![](pictures/menu3.jpg)
 
-![](pictures/qemu4.jpg)
+![](pictures/menu4.jpg)
 
 
 

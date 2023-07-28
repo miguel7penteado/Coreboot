@@ -80,9 +80,16 @@ Aqui a idéia é gerar um binário de coreboot que seja compilado específicamen
 make menuconfig
 ```
 Segue as telas de configuração:
+
+Navegue até o submenu **mainboard** para escolher a placa-mãe.
+
 ![](pictures/menu1.jpg)
 
+Escolha o "modelo" de placa **QEMU x86 i440fx**. O tamanho do chip ROM pode ficar em 256 KB por enquanto. Poderíamos aumentá-lo, QEMU não se importaria com isso. Se escolhermos uma placa-mãe real, o tamanho do chip ROM deve corresponder ao tamanho do chip ROM da placa-mãe. O tamanho do CBFS (Coreboot Filesystem) determina quanto espaço o coreboot deve ocupar no chip ROM. Portanto não precisamos alterar essa opção para este cenário.
+
 ![](pictures/menu2.jpg)
+
+Vamos agora adicionar a carga útil (payload).
 
 ![](pictures/menu3.jpg)
 

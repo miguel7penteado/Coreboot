@@ -1,84 +1,55 @@
-coreboot README
-===============
+# Coreboot README
 
-coreboot is a Free Software project aimed at replacing the proprietary
-firmware (BIOS/UEFI) found in most computers. coreboot performs the
-required hardware initialization to configure the system, then passes
-control to a different executable, referred to in coreboot as the
-payload. Most often, the primary function of the payload is to boot the
-operating system (OS).
+Coreboot é um projeto de Software Livre que visa substituir o proprietário firmware (BIOS/UEFI) encontrado na maioria dos computadores. coreboot executa o
+inicialização de hardware necessária para configurar o sistema e, em seguida, passa controle para um executável diferente, referido no coreboot como o
+payload. Na maioria das vezes, a função principal da carga útil é inicializar o sistema operacional (SO).
 
-With the separation of hardware initialization and later boot logic,
-coreboot is perfect for a wide variety of situations. It can be used
-for specialized applications that run directly in the firmware, running
-operating systems from flash, loading custom bootloaders, or
-implementing firmware standards, like PC BIOS services or UEFI. This
-flexibility allows coreboot systems to include only the features
-necessary in the target application, reducing the amount of code and
-flash space required.
+Com a separação de inicialização de hardware e lógica de inicialização posterior, coreboot é perfeito para uma ampla variedade de situações. Isso pode ser usado
+para aplicações especializadas que rodam diretamente no firmware, rodando sistemas operacionais de flash, carregando bootloaders personalizados ou
+implementando padrões de firmware, como serviços de BIOS de PC ou UEFI. Esse flexibilidade permite que os sistemas coreboot incluam apenas os recursos
+necessário na aplicação de destino, reduzindo a quantidade de código e espaço flash necessário.
 
+## Código Fonte
 
-Source code
------------
+Todo o código-fonte do coreboot é armazenado no git. Ele é baixado com o comando:
 
-All source code for coreboot is stored in git. It is downloaded with
-the command:
+```bash
+git clone https://review.coreboot.org/coreboot.git
+```
 
-`git clone https://review.coreboot.org/coreboot.git`.
+As revisões de código são feitas em [a instância Gerrit do projeto](https://review.coreboot.org/).
 
-Code reviews are done in [the project's Gerrit
-instance](https://review.coreboot.org/).
+O código pode ser navegado via [instância Gitiles do coreboot](https://review.coreboot.org/plugins/gitiles/coreboot/+/refs/heads/master).
 
-The code may be browsed via [coreboot's Gitiles
-instance](https://review.coreboot.org/plugins/gitiles/coreboot/+/refs/heads/master).
+O projeto coreboot também mantém um [espelho](https://github.com/coreboot/coreboot) do projeto no github.
+Isso é somente leitura, pois o coreboot não aceita solicitações pull do github, mas permite navegar e baixar a fonte do coreboot.
 
-The coreboot project also maintains a
-[mirror](https://github.com/coreboot/coreboot) of the project on github.
-This is read-only, as coreboot does not accept github pull requests,
-but allows browsing and downloading the coreboot source.
+## Cargas úteis (payloads)
 
-Payloads
---------
+Após a inicialização básica do hardware ter sido executada, qualquer "carga útil" desejada pode ser iniciada pelo coreboot.
 
-After the basic initialization of the hardware has been performed, any
-desired "payload" can be started by coreboot.
-
-See <https://doc.coreboot.org/payloads.html> for a list of some of
-coreboot's supported payloads.
+Consulte <https://doc.coreboot.org/payloads.html> para obter uma lista de alguns dos payloads suportados pelo coreboot.
 
 
-Supported Hardware
-------------------
+## Hardware suportado
 
-The coreboot project supports a wide range of architectures, chipsets,
-devices, and mainboards. While not all of these are documented, you can
-find some information in the [Architecture-specific
-documentation](https://doc.coreboot.org/arch/index.html) or the
-[SOC-specific documentation](https://doc.coreboot.org/soc/index.html).
+O projeto coreboot oferece suporte a uma ampla variedade de arquiteturas, chipsets, dispositivos e placas-mãe. Embora nem todos estejam documentados, você pode
+encontrar algumas informações no [Architecture-specific documentation](https://doc.coreboot.org/arch/index.html) ou no [SOC-specific documentation](https://doc.coreboot.org/soc/index.html).
 
-For details about the specific mainboard devices that coreboot supports,
-please consult the [Mainboard-specific
-documentation](https://doc.coreboot.org/mainboard/index.html) or the
-[Board Status](https://coreboot.org/status/board-status.html) pages.
+Para obter detalhes sobre os dispositivos específicos da placa-mãe suportados pelo coreboot, consulte as páginas [Documentação específica da placa-mãe](https://doc.coreboot.org/mainboard/index.html) ou
+[Status das Placas](https://coreboot.org/status/board-status.html).
 
 
-Releases
---------
+## Versões Publicadas
 
-Releases are currently done by coreboot every quarter. The
-release archives contain the entire coreboot codebase from the time of
-the release, along with any external submodules. The submodules
-containing binaries are separated from the general release archives. All
-of the packages required to build the coreboot toolchains are also kept
-at coreboot.org in case the websites change, or those specific packages
-become unavailable in the future.
+Atualmente, os lançamentos são feitos por coreboot a cada trimestre. Os arquivos de lançamento contêm toda a base de código do coreboot desde o momento da
+o lançamento, juntamente com quaisquer submódulos externos. Os submódulos contendo binários são separados dos arquivos de lançamento geral. Todos
+dos pacotes necessários para construir as cadeias de ferramentas coreboot também são mantidos em coreboot.org caso os sites mudem ou esses pacotes específicos
+ficarão indisponíveis no futuro.
 
-All releases are available on the [coreboot
-download](https://coreboot.org/downloads.html) page.
+Todas as versões estão disponíveis na página [download do coreboot](https://coreboot.org/downloads.html).
 
-Please note that the coreboot releases are best considered as snapshots
-of the codebase, and do not currently guarantee any sort of extra
-stability.
+Observe que os lançamentos de coreboot são melhor considerados como instantâneos da base de código e atualmente não garantem nenhum tipo de extra estabilidade.
 
 Build Requirements and building coreboot
 ----------------------------------------

@@ -51,119 +51,60 @@ Todas as versões estão disponíveis na página [download do coreboot](https://
 
 Observe que os lançamentos de coreboot são melhor considerados como instantâneos da base de código e atualmente não garantem nenhum tipo de extra estabilidade.
 
-Build Requirements and building coreboot
-----------------------------------------
+## Requisitos de compilação e inicialização do núcleo
 
-The coreboot build, associated utilities and payloads require many
-additional tools and packages to build. The actual coreboot binary is
-typically built using a coreboot-controlled toolchain to provide
-reproducibility across various platforms. It is also possible, though
-not recommended, to make it directly with your system toolchain.
-Operating systems and distributions come with an unknown variety of
-system tools and utilities installed. Because of this, it isn't
-reasonable to list all the required packages to do a build, but the
-documentation lists the requirements for a few different Linux
-distributions.
+A compilação coreboot, utilitários associados e cargas úteis requerem muitas ferramentas e pacotes adicionais para serem compilados. O binário real do coreboot é
+normalmente construído usando uma cadeia de ferramentas controlada por coreboot para fornecer reprodutibilidade em várias plataformas. Também é possível, embora
+não recomendado, fazê-lo diretamente com sua cadeia de ferramentas do sistema. Sistemas operacionais e distribuições vêm com uma variedade desconhecida de
+ferramentas e utilitários do sistema instalados. Por causa disso, não é razoável listar todos os pacotes necessários para fazer uma compilação, mas o
+A documentação lista os requisitos para algumas distribuições Linux diferentes.
 
-To see the list of tools and libraries, along with a list of
-instructions to get started building coreboot, go to the [Starting from
-scratch](https://doc.coreboot.org/tutorial/part1.html) tutorial page.
+Para ver a lista de ferramentas e bibliotecas, juntamente com uma lista de instruções para começar a criar o coreboot, acesse a página do tutorial [Começando do zero](https://doc.coreboot.org/tutorial/part1.html).
 
-That same page goes through how to use QEMU to boot the build and see
-the output.
+Essa mesma página mostra como usar o QEMU para inicializar a compilação e ver a saída.
 
 
-Website and Mailing List
-------------------------
+## Direitos autorais e licenças
 
-Further details on the project, as well as links to documentation and
-more can be found on the coreboot website:
+### Arquivos não protegidos por direitos autorais
 
-  <https://www.coreboot.org>
+Existem muitos arquivos na árvore do coreboot que achamos que não são protegidos por direitos autorais devido à falta de conteúdo criativo.
 
-You can contact us directly on the coreboot mailing list:
+"Para se qualificar para proteção de direitos autorais nos Estados Unidos, uma obra deve satisfazer o requisito de originalidade, que tem duas partes.
+o trabalho deve ter "pelo menos um mínimo" de criatividade e deve ser a criação independente de seu autor."
 
-  <https://doc.coreboot.org/community/forums.html>
+   <https://guides.lib.umich.edu/copyrightbasics/copyrightability>
 
+Termos semelhantes se aplicam a outros locais.
 
+Esses arquivos não protegidos por direitos autorais incluem:
 
-Copyrights and Licenses
----------------------
+- Arquivos vazios ou arquivos com apenas um comentário explicando sua existência. Pode ser necessário que existam como parte do processo de construção, mas não são necessários para o projeto específico.
+- Arquivos de configuração em formato binário ou de texto. Exemplos seriam arquivos como arquivos .vbt descrevendo a configuração gráfica, arquivos spd como .spd binário ou texto \*spd\*.hex representando a configuração do chip de memória.
+- Arquivos gerados por máquina contendo números de versão, datas, valores de hash ou outro conteúdo "não criativo".
 
+Como conteúdo não criativo, esses arquivos são de domínio público por padrão. Como tal, o projeto coreboot os exclui da licença geral do projeto, mesmo que possam ser incluídos em um binário final.
 
-### Uncopyrightable files
+Se houver dúvidas ou preocupações sobre esta política, entre em contato com o projeto coreboot através da lista de discussão.
 
-There are many files in the coreboot tree that we feel are not
-copyrightable due to a lack of creative content.
+### Direitos autorais
 
-"In order to qualify for copyright protection in the United States, a
-work must satisfy the originality requirement, which has two parts. The
-work must have “at least a modicum” of creativity, and it must be the
-independent creation of its author."
+Os direitos autorais do coreboot pertencem a um grande número de desenvolvedores e empresas individuais. Uma lista de empresas e indivíduos com
+as reivindicações de direitos autorais estão presentes no nível superior da árvore de origem do coreboot no arquivo 'AUTHORS'. Verifique o histórico git de cada um dos arquivos de origem para obter detalhes.
 
-  <https://guides.lib.umich.edu/copyrightbasics/copyrightability>
+### Licenças
 
-Similar terms apply to other locations.
+Devido à forma como o coreboot começou, usando uma quantidade significativa de código-fonte do kernel do Linux, ele é licenciado da mesma forma que o Linux
+Kernel, com GNU General Public License (GPL) Versão 2. Arquivos individuais são licenciados sob várias licenças, embora todas sejam compatíveis
+com GPLv2. A imagem coreboot resultante é licenciada sob a GPL, versão 2. Todos os arquivos de origem devem ter um identificador de licença SPDX em
+o topo para esclarecimentos.
 
-These uncopyrightable files include:
+Os arquivos em coreboot/Documentation/ são licenciados sob os termos CC-BY 4.0. Como exceção, os arquivos em Documentação/ com histórico anterior a 24/05/2017 podem estar sob licenças diferentes.
 
-- Empty files or files with only a comment explaining their existence.
-  These may be required to exist as part of the build process but are
-  not needed for the particular project.
-- Configuration files either in binary or text form. Examples would be
-  files such as .vbt files describing graphics configuration, spd files
-  as binary .spd or text \*spd\*.hex representing memory chip
-  configuration.
-- Machine-generated files containing version numbers, dates, hash
-  values or other "non-creative" content.
+Os arquivos no diretório coreboot/src/commonlib/bsd são todos licenciados com a licença BSD-3-clause. Muitos também possuem licença dupla GPL-2.0-only ou GPL-2.0-or-later. Esses arquivos devem ser compartilhados com libpayload ou outros projetos licenciados BSD.
 
-As non-creative content, these files are in the public domain by
-default.  As such, the coreboot project excludes them from the project's
-general license even though they may be included in a final binary.
+O projeto libpayload contido em coreboot/payloads/libpayload pode ser licenciado como BSD ou GPL, dependendo do código extraído durante o processo de compilação. Todo o código-fonte GPL deve ser excluído, a menos que o Kconfig opção para incluí-lo está definida.
 
-If there are questions or concerns about this policy, please get in
-touch with the coreboot project via the mailing list.
+## A Conservação da Liberdade de Software
 
-
-### Copyrights
-
-The copyright on coreboot is owned by quite a large number of individual
-developers and companies. A list of companies and individuals with known
-copyright claims is present at the top level of the coreboot source tree
-in the 'AUTHORS' file. Please check the git history of each of the
-source files for details.
-
-
-### Licenses
-
-Because of the way coreboot began, using a significant amount of source
-code from the Linux kernel, it's licensed the same way as the Linux
-Kernel, with GNU General Public License (GPL) Version 2. Individual
-files are licensed under various licenses, though all are compatible
-with GPLv2. The resulting coreboot image is licensed under the GPL,
-version 2. All source files should have an SPDX license identifier at
-the top for clarification.
-
-Files under coreboot/Documentation/ are licensed under CC-BY 4.0 terms.
-As an exception, files under Documentation/ with a history older than
-2017-05-24 might be under different licenses.
-
-Files in the coreboot/src/commonlib/bsd directory are all licensed with
-the BSD-3-clause license.  Many are also dual-licensed GPL-2.0-only or
-GPL-2.0-or-later.  These files are intended to be shared with libpayload
-or other BSD licensed projects.
-
-The libpayload project contained in coreboot/payloads/libpayload may be
-licensed as BSD or GPL, depending on the code pulled in during the build
-process. All GPL source code should be excluded unless the Kconfig
-option to include it is set.
-
-
-The Software Freedom Conservancy
---------------------------------
-
-Since 2017, coreboot has been a member of [The Software Freedom
-Conservancy](https://sfconservancy.org/), a nonprofit organization
-devoted to ethical technology and driving initiatives to make technology
-more inclusive. The conservancy acts as coreboot's fiscal sponsor and
-legal advisor.
+Desde 2017, a coreboot é membro da [The Software Freedom Conservancy](https://sfconservancy.org/), uma organização sem fins lucrativos dedicada à tecnologia ética e à condução de iniciativas para tornar a tecnologia mais inclusiva. A conservação atua como patrocinador fiscal e consultor jurídico do coreboot.

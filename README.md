@@ -112,8 +112,21 @@ A compilação coreboot, utilitários associados e cargas úteis requerem muitas
 
 ```bash
 # compilando e construindo utilizando compilação cruzada com a cadeia de ferramentas fornecidas pelo próprio coreboot
-make crossgcc-i386
+make crossgcc-i386 CPUS=${numero_processadores}
 ```
+
+
+```bash
+# compilando o iasl
+make iasl
+```
+
+```bash
+# construa
+make
+```
+
+
 
 Também é possível, embora não recomendado, fazê-lo diretamente com sua cadeia de ferramentas (toolchain) padrão do sistema. Sistemas operacionais e distribuições vêm com uma variedade desconhecida de ferramentas e utilitários do sistema instalados. Por causa disso, não é razoável listar todos os pacotes necessários para fazer uma compilação, mas o A documentação lista os requisitos para algumas distribuições Linux diferentes.
 

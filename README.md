@@ -73,6 +73,18 @@ Se você está usando Debian/Ubuntu seguem os pacotes pré-requisitados
 ```bash
 sudo apt-get install -y bison build-essential curl flex git gnat libncurses5-dev m4 zlib1g-dev qemu
 ```
+### Toolchain kconfig: Invocando a ferramenta de configuração da compilação e construção do binário coreboot
+Aqui a idéia é gerar um binário de coreboot que seja compilado específicamente para rodar como "BIOS" no emulador QEMU.
+
+```bash
+make menuconfig
+```
+Segue as telas de configuração:
+![pictures/qemu1.jpg]
+
+![pictures/qemu2.jpg]
+
+
 
 A compilação coreboot, utilitários associados e cargas úteis requerem muitas ferramentas e pacotes adicionais para serem compilados. O binário real do coreboot é normalmente construído usando uma cadeia de ferramentas (toolchain) gerenciada pelo coreboot para fornecer reprodutibilidade em várias plataformas. 
 

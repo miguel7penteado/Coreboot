@@ -89,13 +89,24 @@ Escolha o "modelo" de placa **QEMU x86 i440fx**. O tamanho do chip ROM pode fica
 
 ![](pictures/menu2.jpg)
 
-Vamos agora adicionar a carga útil (payload).
+Vamos agora adicionar a carga útil (payload). Neste caso por padrão será oferecida como payload uma implementação de BIOS chamada SEABIOS. 
 
 ![](pictures/menu3.jpg)
 
+Vamos agora escolher o payload secundário. como opções temos:
+
+| Cargas Secundárias | Descrição                       |
+|--------------------|---------------------------------|
+| Coreinfo           | Carga secundária para o SEABIOS |
+| Memtest86+         | Testador de memória do sistema  |
+| nvramcui           |                                 |
+| tint               |                                 |
+
 ![](pictures/menu4.jpg)
 
+Pressione ESC para sair do menu. Sua configuração de compilação está pronta.
 
+### compilação e construção
 
 A compilação coreboot, utilitários associados e cargas úteis requerem muitas ferramentas e pacotes adicionais para serem compilados. O binário real do coreboot é normalmente construído usando uma cadeia de ferramentas (toolchain) gerenciada pelo coreboot para fornecer reprodutibilidade em várias plataformas. 
 

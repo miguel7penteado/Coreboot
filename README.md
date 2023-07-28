@@ -24,6 +24,21 @@ O código pode ser navegado via [instância Gitiles do coreboot](https://review.
 O projeto coreboot também mantém um [espelho](https://github.com/coreboot/coreboot) do projeto no github.
 Isso é somente leitura, pois o coreboot não aceita solicitações pull do github, mas permite navegar e baixar a fonte do coreboot.
 
+## Árvore de diretórios do projeto Coreboot
+
+
+
+| Diretório da árvore | Conteúdo                                                                                         |
+|---------------------|--------------------------------------------------------------------------------------------------|
+| 3rdparty            | contém software de terceiros como binários que você pode precisar para inicializar seu hardware; |
+| configs             | Configurações de compilação predefinidas para coreboot                                           |
+| Documentations      | Há algumas documentações especiais sobre certas placas-mãe ou outros componentes                 |
+| payloads            | inclui tudo o que você precisa para construir as diferentes cargas úteis                         |
+| util                | contém alguns utilitários com os quais você não precisa se preocupar ainda                       |
+| src                 | Contém todo o código-fonte do coreboot                                                           |
+
+
+
 ## Cargas úteis (payloads)
 
 Após a inicialização básica do hardware ter sido executada, qualquer "carga útil" desejada pode ser iniciada pelo coreboot.

@@ -125,6 +125,7 @@ Você pode testar o resultado diretamente no qemu com os seguintes parâmetros:
 qemu-system-x86_64 -bios build/coreboot.rom -serial stdio
 ```
 
+
 ## Direitos autorais e licenças
 
 ### Arquivos não protegidos por direitos autorais

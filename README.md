@@ -51,18 +51,23 @@ Todas as versões estão disponíveis na página [download do coreboot](https://
 
 Observe que os lançamentos de coreboot são melhor considerados como instantâneos da base de código e atualmente não garantem nenhum tipo de extra estabilidade.
 
-## Requisitos de compilação e inicialização do núcleo
+## Requisitos de compilação e construção
 
-A compilação coreboot, utilitários associados e cargas úteis requerem muitas ferramentas e pacotes adicionais para serem compilados. O binário real do coreboot é
-normalmente construído usando uma cadeia de ferramentas controlada por coreboot para fornecer reprodutibilidade em várias plataformas. Também é possível, embora
-não recomendado, fazê-lo diretamente com sua cadeia de ferramentas do sistema. Sistemas operacionais e distribuições vêm com uma variedade desconhecida de
-ferramentas e utilitários do sistema instalados. Por causa disso, não é razoável listar todos os pacotes necessários para fazer uma compilação, mas o
-A documentação lista os requisitos para algumas distribuições Linux diferentes.
+Se você está usando Debian/Ubuntu seguem os pacotes pré-requisitados
+
+```bash
+sudo apt-get install -y bison build-essential curl flex git gnat libncurses5-dev m4 zlib1g-dev qemu
+```
+
+A compilação coreboot, utilitários associados e cargas úteis requerem muitas ferramentas e pacotes adicionais para serem compilados. O binário real do coreboot é normalmente construído usando uma cadeia de ferramentas (toolchain) gerenciada pelo coreboot para fornecer reprodutibilidade em várias plataformas. Também é possível, embora não recomendado, fazê-lo diretamente com sua cadeia de ferramentas (toolchain) padrão do sistema. Sistemas operacionais e distribuições vêm com uma variedade desconhecida de ferramentas e utilitários do sistema instalados. Por causa disso, não é razoável listar todos os pacotes necessários para fazer uma compilação, mas o A documentação lista os requisitos para algumas distribuições Linux diferentes.
 
 Para ver a lista de ferramentas e bibliotecas, juntamente com uma lista de instruções para começar a criar o coreboot, acesse a página do tutorial [Começando do zero](https://doc.coreboot.org/tutorial/part1.html).
 
-Essa mesma página mostra como usar o QEMU para inicializar a compilação e ver a saída.
+Você pode testar o resultado diretamente no qemu com os seguintes parâmetros:
 
+```bash
+qemu-system-x86_64 -bios build/coreboot.rom -serial stdio
+```
 
 ## Direitos autorais e licenças
 
@@ -70,8 +75,7 @@ Essa mesma página mostra como usar o QEMU para inicializar a compilação e ver
 
 Existem muitos arquivos na árvore do coreboot que achamos que não são protegidos por direitos autorais devido à falta de conteúdo criativo.
 
-"Para se qualificar para proteção de direitos autorais nos Estados Unidos, uma obra deve satisfazer o requisito de originalidade, que tem duas partes.
-o trabalho deve ter "pelo menos um mínimo" de criatividade e deve ser a criação independente de seu autor."
+>> "Para se qualificar para proteção de direitos autorais nos Estados Unidos, uma obra deve satisfazer o requisito de originalidade, que tem duas partes. o trabalho deve ter "pelo menos um mínimo" de criatividade e deve ser a criação independente de seu autor."
 
    <https://guides.lib.umich.edu/copyrightbasics/copyrightability>
 
